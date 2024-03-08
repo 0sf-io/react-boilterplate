@@ -50,12 +50,12 @@ describe("<TextBox />", function() {
     it("should emit onChange event on input", async function() {
         fireEvent.change(input, {target: {value: "xxx"}});
         expect(input.value).toBe("xxx");
-        expect(onChange).toBeCalled();
+        expect(onChange).toHaveBeenCalled();
     });
 
     it("should emit onFocus event on focus", async function() {
         fireEvent.focus(input);
-        expect(onFocus).toBeCalled();
+        expect(onFocus).toHaveBeenCalled();
     });
 
     it("should render input with given value", function() {

@@ -35,9 +35,14 @@ const useHttpClient = () => useContext(HttpClientContext);
 
 function TestComponent() {
     const httpClient = useHttpClient();
+    const fetchData = () => httpClient.get("/test")
+        .catch((error) => {
+            console.log("Error");
+            console.error(error);
+        });
 
     return (
-        <button onClick={() => httpClient.get("/test")}
+        <button onClick={fetchData}
                 data-testid="test">Click me</button>
     );
 }
