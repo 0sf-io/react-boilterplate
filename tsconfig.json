@@ -6,7 +6,11 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,
-
+    "types": [
+      "jest",
+      "@testing-library/jest-dom",
+      "node"
+    ],
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": false,
     "resolveJsonModule": true,
@@ -46,7 +50,7 @@
       "providers/*":["./src/providers/*"],
       "utils": ["./src/utils"],
       "utils/*": ["./src/utils/*"]
-    },
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.prod.json" }],

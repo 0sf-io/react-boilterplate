@@ -81,7 +81,7 @@ describe("<HttpClientProvider mock />", function() {
     it("should handle http requests as expected", async function() {
         fireEvent.click(await screen.findByTestId("test"));
         await wait(50);
-        expect(fn).toBeCalled();
+        expect(fn).toHaveBeenCalled();
     });
 });
 
@@ -91,6 +91,6 @@ describe("<HttpClientProvider axios />", function() {
     it("should handle http requests as expected", async function() {
         fireEvent.click(await screen.findByTestId("test"));
         await wait(50);
-        expect(fn).toBeCalled();
+        expect(fn).toHaveBeenCalled();
     });
 });

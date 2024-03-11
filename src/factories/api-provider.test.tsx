@@ -45,6 +45,6 @@ describe("createApiProvider()", function() {
 
     it("should be able to use the api within the provider scope", async function() {
         fireEvent.click(await screen.findByTestId("test"));
-        expect(fn).toBeCalled();
+        expect(fn).toHaveBeenCalled();
     });
 });
