@@ -17,7 +17,9 @@ import {createBrowserRouter} from 'react-router-dom';
 
 const Router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout />} errorElement={<CenteredLayout>
+            <MessagePage message='Error' description='Oops! Something went wrong. Please try again later.' />
+        </CenteredLayout>}>
             <Route path="/" element={<RequiresAuth element={<Dashboard />} />} />
             <Route path="/dashboard" element={<Dashboard />} />
 
@@ -71,12 +73,9 @@ const Router = createBrowserRouter(
                 </CenteredLayout>
             </ApiProvider>} />
 
-            <Route path="/error/404" element={<ApiProvider providers={['auth']}>
-                <CenteredLayout title={'404'}>
-                    <MessagePage code={404} message="Page not found"
-                                 description="Oops! The page you're looking for doesn't exist." />
-                </CenteredLayout>
-            </ApiProvider>} />
+            <Route path='*' element={<CenteredLayout>
+                <MessagePage code={404} message='Page not found' description='Oops! The page you are looking for does not exist' />
+            </CenteredLayout> } />
         </Route>,
     ),
 );
