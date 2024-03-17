@@ -1,6 +1,6 @@
 import {useAuth} from 'providers';
 import {PropsWithChildren, ReactNode, useEffect, useState} from 'react';
-import {Navigate, Outlet, useLocation} from 'react-router';
+import {Navigate, useLocation} from 'react-router';
 
 type Props = {
     element?: ReactNode;
@@ -33,6 +33,5 @@ export function RequiresAuth(props: Props) {
     return <>
         {props.element}
         {props.children}
-        <Outlet />
     </>;
 }

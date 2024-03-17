@@ -1,11 +1,11 @@
 import {Toaster} from 'components/ui/toaster';
-import {AuthProvider} from "providers/AuthProvider";
-import {HttpClientProvider} from "providers/HttpClientProvider";
+import {ApiProvider} from 'providers/ApiProvider';
+import {HttpClientProvider} from 'providers/HttpClientProvider';
 import {ThemeProvider} from 'providers/ThemeProvider';
-import React from "react";
-import {RouterProvider} from "react-router";
-import HttpClient from "@/lib/http-client";
-import router from "./Router";
+import React from 'react';
+import {RouterProvider} from 'react-router';
+import HttpClient from '@/lib/http-client';
+import router from './Router';
 
 export function App() {
     const httpClient = HttpClient.Instance();
@@ -18,10 +18,10 @@ export function App() {
     return <React.StrictMode>
         <ThemeProvider defaultTheme="system" storageKey="theme">
             <HttpClientProvider value={httpClient}>
-                <AuthProvider>
-                    <RouterProvider router={router}/>
+                <ApiProvider providers={['auth']}>
+                    <RouterProvider router={router} />
                     <Toaster />
-                </AuthProvider>
+                </ApiProvider>
             </HttpClientProvider>
         </ThemeProvider>
     </React.StrictMode>;

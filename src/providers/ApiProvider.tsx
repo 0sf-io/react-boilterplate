@@ -1,8 +1,8 @@
-import {AuthApiProvider} from "providers";
+import {AuthProvider} from "providers/AuthProvider";
 import {PropsWithChildren, ReactNode} from "react";
 
 const providersRegistry = {
-    auth: AuthApiProvider,
+    auth: AuthProvider,
 };
 
 type registryType = typeof providersRegistry;

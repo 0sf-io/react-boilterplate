@@ -1,6 +1,6 @@
 import {useAuth} from 'providers';
 import {PropsWithChildren, ReactNode} from 'react';
-import {Navigate, Outlet} from 'react-router';
+import {Navigate} from 'react-router';
 
 type Props = {
     element?: ReactNode;
@@ -17,6 +17,5 @@ export function RedirectIfAuthenticated(props: Props) {
     return <>
         {props.element}
         {props.children}
-        <Outlet />
     </>;
 }
