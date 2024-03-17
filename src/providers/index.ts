@@ -1,13 +1,23 @@
-import { AuthContext } from "providers/AuthProvider";
-import HttpClientContext from "providers/HttpClientProvider";
-import {useContext} from "react";
+import {AuthContext} from 'providers/AuthProvider';
+import HttpClientContext from 'providers/HttpClientProvider';
+import {ThemeProviderContext} from 'providers/ThemeProvider';
+import {useContext} from 'react';
 
-export * from "providers/AuthProvider";
+function ensureContext<T>(context: T): T {
+    if (context === undefined)
+        throw new Error('context used outside of context scope');
+
+    return context;
+}
 
 export function useAuth() {
-    return useContext(AuthContext);
+    return ensureContext(useContext(AuthContext));
 }
 
 export function useHttpClient() {
-    return useContext(HttpClientContext);
+    return ensureContext(useContext(HttpClientContext));
 }
+
+export const useTheme = () => {
+    return ensureContext(useContext(ThemeProviderContext));
+};

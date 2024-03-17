@@ -1,5 +1,5 @@
 import {Toaster} from 'components/ui/toaster';
-import {ApiProvider} from 'providers/ApiProvider';
+import {ApiProvider} from 'factories/ApiProvider';
 import {HttpClientProvider} from 'providers/HttpClientProvider';
 import {ThemeProvider} from 'providers/ThemeProvider';
 import React from 'react';
