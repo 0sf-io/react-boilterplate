@@ -3,7 +3,7 @@ import ApiResponse from "contracts/api-response";
 import {Request} from "express";
 import fs from "node:fs";
 import {HttpClient} from "providers/HttpClientProvider";
-import {BaseHttpClient} from "utils/http-client";
+import {BaseHttpClient} from "@/lib/http-client";
 import {MockHandler} from "../../plugins/mock-server/server";
 
 type ConfigType = unknown & { params: unknown };

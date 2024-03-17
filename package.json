@@ -33,6 +33,7 @@
     "i18next": "^23.10.0",
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-http-backend": "^2.5.0",
+    "input-otp": "^1.2.0",
     "lucide-react": "^0.350.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -43,7 +44,7 @@
     "react-social-icons": "^6.14.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.22.4"
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",

@@ -1,8 +1,8 @@
 import {fireEvent, render, screen} from "@testing-library/react";
 import {useContext} from "react";
-import {wait} from "utils/helpers";
-import AxiosHttpClient from "utils/http-client";
-import MockHttpClient from "utils/mock-http-client";
+import {wait} from "@/lib/helpers";
+import AxiosHttpClient from "@/lib/http-client";
+import MockHttpClient from "@/lib/mock-http-client";
 import {vi} from "vitest";
 import MockServer from "../../plugins/mock-server/server";
 import {HttpClientContext, HttpClientProvider} from "./HttpClientProvider";

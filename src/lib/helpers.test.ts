@@ -1,4 +1,4 @@
-import {ifStringOr, isNull, isNullOrUndefined, isNumber, isString, isUndefined, wait} from "utils/helpers";
+import {ifStringOr, isNull, isNullOrUndefined, isNumber, isString, isUndefined, wait} from "@/lib/helpers";
 
 describe("wait", () => {
     it("should wait for given timeout", async function() {

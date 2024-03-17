@@ -1,4 +1,4 @@
-import {emailRegexp} from 'utils/string';
+import {emailRegexp} from '@/lib/string';
 
 describe('emailRegexp', () => {
     it('should match valid emails', () => {

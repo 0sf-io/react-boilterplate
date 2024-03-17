@@ -12,7 +12,6 @@ interface IMessagePageProps {
 }
 
 export function MessagePage(props: IMessagePageProps) {
-
   return (
     <div className="mx-auto max-w-md space-y-6">
       <div className="space-y-2 text-center">

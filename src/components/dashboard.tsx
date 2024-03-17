@@ -8,6 +8,7 @@ import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { ResponsiveBar } from "@nivo/bar"
 import { ResponsiveLine } from "@nivo/line"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
+import {ModeToggle} from 'components/theme/mode-toggle';
 import {ComponentProps, SVGProps} from 'react';
 import {NavLink} from 'react-router-dom';
 
@@ -53,6 +54,7 @@ export function Dashboard() {
           >
             <SettingsIcon className="w-5 h-5" />
             <span className="mx-4 font-medium">Settings</span>
+            <ModeToggle />
           </NavLink>
         </div>
       </div>

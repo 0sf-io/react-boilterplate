@@ -1,6 +1,6 @@
-import {useAuth} from "providers";
-import {PropsWithChildren, ReactNode, useEffect, useState} from "react";
-import {Navigate, useLocation} from "react-router";
+import {useAuth} from 'providers';
+import {PropsWithChildren, ReactNode, useEffect, useState} from 'react';
+import {Navigate, Outlet, useLocation} from 'react-router';
 
 type Props = {
     element?: ReactNode;
@@ -14,7 +14,7 @@ export function RequiresAuth(props: Props) {
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        if(authState.isAuthenticated) {
+        if (authState.isAuthenticated) {
             return;
         }
 
@@ -22,16 +22,17 @@ export function RequiresAuth(props: Props) {
         setRedirect(true);
     }, [authState, authActions, dispatch, url]);
 
-    if(redirect) {
-        return <Navigate to={"/login"}/>;
+    if (redirect) {
+        return <Navigate to={'/auth/login'} />;
     }
 
-    if(!authState.isAuthenticated) {
+    if (!authState.isAuthenticated) {
         return null;
     }
 
     return <>
         {props.element}
         {props.children}
+        <Outlet />
     </>;
 }

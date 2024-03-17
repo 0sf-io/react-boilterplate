@@ -1,8 +1,10 @@
+import {Toaster} from 'components/ui/toaster';
 import {AuthProvider} from "providers/AuthProvider";
 import {HttpClientProvider} from "providers/HttpClientProvider";
+import {ThemeProvider} from 'providers/ThemeProvider';
 import React from "react";
 import {RouterProvider} from "react-router";
-import HttpClient from "utils/http-client";
+import HttpClient from "@/lib/http-client";
 import router from "./Router";
 
 export function App() {
@@ -14,10 +16,13 @@ export function App() {
     httpClient.setBaseUrl(DEV ? DEV_URL : PROD_URL);
 
     return <React.StrictMode>
-        <HttpClientProvider value={httpClient}>
-            <AuthProvider>
-                <RouterProvider router={router}/>
-            </AuthProvider>
-        </HttpClientProvider>
+        <ThemeProvider defaultTheme="system" storageKey="theme">
+            <HttpClientProvider value={httpClient}>
+                <AuthProvider>
+                    <RouterProvider router={router}/>
+                    <Toaster />
+                </AuthProvider>
+            </HttpClientProvider>
+        </ThemeProvider>
     </React.StrictMode>;
 }

@@ -1,3 +1,4 @@
+import {yupResolver} from '@hookform/resolvers/yup';
 import { Label } from "components/ui/label"
 import { Input } from "components/ui/input"
 import { Checkbox } from "components/ui/checkbox"
@@ -5,6 +6,7 @@ import { Button } from "components/ui/button"
 import { Separator } from "components/ui/separator"
 import {ErrorMessage} from '@hookform/error-message';
 import {WorkingIndicator} from 'components/common/working-indicator';
+import {useToast} from 'components/ui/use-toast';
 import {useAuth, useHttpClient} from 'providers';
 import {useState} from 'react';
 import {Title} from 'react-head';
@@ -13,27 +15,34 @@ import {Trans, useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router';
 import {Link, NavLink} from 'react-router-dom';
 import {SocialIcon} from 'react-social-icons';
-import {emailRegexp} from 'utils/string';
+import * as yup from 'yup';
 
 interface IFormInput {
     email: string;
     password: string;
-    remember_me: boolean;
+    remember_me?: boolean;
 }
+
+const schema = yup.object({
+  email: yup.string().email('This field must be a valid email').required('This field is required'),
+  password: yup.string().min(8, 'This field must be more than 8 characters').max(60, 'This field must be less than 60 characters').required('This field is required'),
+  remember_me: yup.boolean(),
+}).required();
 
 export function Login() {
   const {api: authApi, state: authState, actions: authActions, dispatch} = useAuth();
   const httpClient = useHttpClient();
   const navigate = useNavigate();
   const {t} = useTranslation();
-  const {register, formState: {errors}, handleSubmit} = useForm<IFormInput>();
+  const {toast} = useToast();
+  const {register, formState: {errors}, handleSubmit} = useForm<IFormInput>({
+    resolver: yupResolver(schema),
+  });
   const [working, setWorking] = useState(false);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log(data);
     setWorking(true);
     try {
-      await new Promise((_, reject) => setTimeout(reject, 1000));
       const {data: {token}} = await authApi.login(data);
       httpClient.setAuthorizationHeader(`Bearer ${token}`);
 
@@ -43,6 +52,10 @@ export function Login() {
 
       navigate(authState.nextRoute || "/");
     } catch (e) {
+      toast({
+        title: t('Error'),
+        description: t('Something went wrong. Please try again.'),
+      });
       console.log(e);
     } finally {
       setWorking(false);
@@ -51,7 +64,7 @@ export function Login() {
 
   return (
       <>
-        <Title>Login</Title>
+        <Title><Trans>Login</Trans></Title>
         <div key="1" className="mx-auto max-w-md space-y-6">
           <div className="space-y-2 text-center">
             <h1 className="text-3xl font-bold"><Trans>Login</Trans></h1>
@@ -64,53 +77,25 @@ export function Login() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email"><Trans>Email</Trans></Label>
-                  <Input id="email"
-                         placeholder="m@example.com"
-                         type="email"
-                         {...register('email', {
-                           required: t('This field is required'),
-                           pattern: {
-                             value: emailRegexp,
-                             message: t('This field must be a valid email'),
-                           },
-                           maxLength: {
-                             value: 60,
-                             message: t('This field must be less than 60 characters'),
-                           },
-                           minLength: {
-                             value: 6,
-                             message: t('This field must be more than 8 characters'),
-                           },
-                         })}
-                  />
+                  <Input id="email" placeholder="m@example.com" type="email" {...register('email')} />
                   <ErrorMessage errors={errors}
                                 name="email"
-                                render={({message}) => <p className="text-red-500 text-xs">{message}</p>}
+                                render={({message}) => <p className="text-red-500 text-xs">{t(message)}</p>}
                   />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="password"><Trans>Password</Trans></Label>
-                  <Input id="password"
-                         type="password"
-                         {...register('password', {
-                           required: t('This field is required'),
-                           maxLength: {
-                             value: 60,
-                             message: t('This field must be less than 60 characters'),
-                           },
-                           minLength: {
-                             value: 8,
-                             message: t('This field must be more than 8 characters'),
-                           },
-                         })} />
+                  <Input id="password" type="password" {...register('password')} />
                   <ErrorMessage errors={errors}
                                 name="password"
-                                render={({message}) => <p className="text-red-500 text-xs">{message}</p>}
+                                render={({message}) => <p className="text-red-500 text-xs">{t(message)}</p>}
                   />
                 </div>
                 <div className="flex items-center mt-2 mb-2 justify-between">
                   <div className="flex items-center justify-between">
-                    <Checkbox id="remember-me" {...register('remember_me')} />
+                    <Checkbox id="remember-me" {...register('remember_me', {
+                      setValueAs: (value) => value === 'on',
+                    })} />
                     &nbsp;
                     <Label className="text-sm" htmlFor="remember-me">
                       <Trans>Remember Me</Trans>
@@ -158,7 +143,7 @@ export function Login() {
 
             <p className="text-center text-sm text-gray-500">
               <Trans>Not a member?</Trans> {" "}
-              <NavLink to="/signup" className="text-sm underline">
+              <NavLink to="/auth/signup" className="text-sm underline">
                 <Trans>Sign up for a new account</Trans>
               </NavLink>
             </p>
