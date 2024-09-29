@@ -6,10 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 'latest'
 
@@ -44,7 +44,7 @@ jobs:
 
       - name: Create the badge
         if: github.ref == 'refs/heads/master'
-        uses: schneegans/dynamic-badges-action@v1.6.0
+        uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: ${{ secrets.JEST_COVERAGE_COMMENT }}
           gistID: b0f8fef776a5c6e55b3787a23e456421
