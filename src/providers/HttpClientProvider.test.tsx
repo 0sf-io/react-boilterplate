@@ -37,7 +37,6 @@ function TestComponent() {
     const httpClient = useHttpClient();
     const fetchData = () => httpClient.get("/test")
         .catch((error) => {
-            console.log("Error");
             console.error(error);
         });
 
